@@ -37,6 +37,8 @@
     <div class="row">
         <div class="col-sm-4"><label>Password:</label></div>
         <div class="col-sm-7">
+            <!-- add regex pattern validation -->
+            <!-- default Identity validations: at least 6 characters, one non-alphanumeric, one lowercase, one uppercase -->
           <input type="password" name="password" required [(ngModel)]="user.Password" #password="ngModel" class="form-control" minlength="5" validateEqual="cpw">
         </div>
     </div>
@@ -57,4 +59,35 @@
     <br>
     
     <input type="submit" value="Register" [disabled]="!regForm.form.valid" class="btn btn-primary">
+</form>
+
+<hr>
+
+<h1>Login</h1>
+<p>{{loginerrors}}</p>
+<form (submit)="userlogin()" #loginForm="ngForm">
+    
+    <div class="row">
+        <div class="col-sm-4"><label>Email Address:</label></div>
+        <div class="col-sm-7">
+          <input type="email" name="lemail" required [(ngModel)]="login.Email" #lemail="ngModel" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-6 error" *ngIf="!lemail.valid && (lemail.dirty || lemail.touched)">Invalid email</div>
+    
+    <br>
+    
+    <div class="row">
+        <div class="col-sm-4"><label>Password:</label></div>
+        <div class="col-sm-7">
+            <!-- add regex pattern validation -->
+            <!-- default Identity validations: at least 6 characters, one non-alphanumeric, one lowercase, one uppercase -->
+          <input type="password" name="lpassword" required [(ngModel)]="login.Password" #lpassword="ngModel" class="form-control" minlength="5">
+        </div>
+    </div>
+    
+    <br>
+
+    <input type="submit" value="Log In" [disabled]="!loginForm.form.valid" class="btn btn-primary">
 </form>

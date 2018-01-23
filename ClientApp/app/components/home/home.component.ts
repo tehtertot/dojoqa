@@ -10,17 +10,32 @@ import { UserService } from '../../services/user.service';
 
 export class HomeComponent {
     user: User = new User();
+    errors: String = "";
+
+    login: User = new User();
+    loginerrors: String = "";
 
     constructor(private _userService: UserService) { }
 
     register() {
         this._userService.registerUser(this.user)
             .then((res) => { 
-                alert("success!".concat(res));
+                this.errors = res;
                 this.user = new User();
             })
             .catch((err) => { 
-                alert("failure".concat(err)); 
+                this.errors = err;
             });
+    }
+
+    userlogin() {
+        this._userService.loginUser(this.login) 
+            .then((res) => {
+                console.log("success!!!");
+                console.log(res);
+            })
+            .catch((err) => {
+                this.loginerrors = err.json()["login"][0];
+            })
     }
 }

@@ -11,4 +11,8 @@ export class UserService {
   registerUser(user: User) {
     return this._http.post('/register', user).map(data => data.json()).toPromise();
   }
+
+  loginUser(user: User) {
+    return this._http.post('/login', user).map(data => data.json()).toPromise();
+  }
 }
