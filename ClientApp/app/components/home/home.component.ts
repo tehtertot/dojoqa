@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from '../../models/User';
 
 import { UserService } from '../../services/user.service';
@@ -15,27 +16,28 @@ export class HomeComponent {
     login: User = new User();
     loginerrors: String = "";
 
-    constructor(private _userService: UserService) { }
+    constructor(private _userService: UserService, private _router: Router) { }
 
     register() {
         this._userService.registerUser(this.user)
-            .then((res) => { 
-                this.errors = res;
-                this.user = new User();
-            })
-            .catch((err) => { 
-                this.errors = err;
-            });
+            .subscribe(
+                (u) => this.successfulRedirect(u.auth_token), 
+                (err) => console.log(err), 
+                () => console.log("complete"));
     }
 
     userlogin() {
         this._userService.loginUser(this.login) 
-            .then((res) => {
-                console.log("success!!!");
-                console.log(res);
-            })
-            .catch((err) => {
-                this.loginerrors = err.json()["login"][0];
-            })
+            .subscribe(
+                (u) => this.successfulRedirect(u.auth_token), 
+                (err) => console.log(err), 
+                () => console.log("complete"));
+    }
+
+    successfulRedirect(token: string) {
+        this.user = new User();
+        localStorage.setItem('auth_token', token);
+        this._userService.setLoggedInStatus(true);
+        this._router.navigate(['/search']);
     }
 }

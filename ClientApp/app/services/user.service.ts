@@ -1,18 +1,42 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 import { User } from '../models/User';
-import 'rxjs';
+import { UserServerResponse } from '../models/UserServerResponse';
+import { Token } from '../models/Token';
+import { Observable } from 'rxjs/Rx';
 
 @Injectable()
 export class UserService {
 
-  constructor(private _http: Http) { }
+  private loggedIn = false;
+  data: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
 
-  registerUser(user: User) {
-    return this._http.post('/register', user).map(data => data.json()).toPromise();
+  constructor(private _http: HttpClient) { }
+
+  isLoggedIn(): boolean {
+    return this.loggedIn;
   }
 
-  loginUser(user: User) {
-    return this._http.post('/login', user).map(data => data.json()).toPromise();
+  registerUser(user: User): Observable<Token> {
+    return this._http.post<Token>('/register', user);
+  }
+
+  setLoggedInStatus(isLoggedIn: boolean) : void {
+    this.loggedIn = isLoggedIn;
+  }
+
+  loginUser(user: User): Observable<Token> {
+    return this._http.post<Token>('/login', user);
+  }
+
+  getUserInfo(): Observable<UserServerResponse> {
+    let authToken = localStorage.getItem('auth_token');
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json', 
+      'Authorization': `Bearer ${authToken}`
+      });
+    
+    return this._http.get<UserServerResponse>("/profile", {headers});
   }
 }

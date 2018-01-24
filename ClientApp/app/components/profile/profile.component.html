@@ -1,0 +1,59 @@
+<h1>Edit Your Info</h1>
+<form (submit)="edit()" #editForm="ngForm">
+    <div class="row">
+        <div class="col-sm-4"><label>First Name:</label></div>
+        <div class="col-sm-7">
+          <input type="text" name="firstName" required [(ngModel)]="user.FirstName" #firstName="ngModel" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-6 error" *ngIf="!firstName.valid && (firstName.dirty || firstName.touched)">First name is required</div>
+    
+    <br>
+    
+    <div class="row">
+        <div class="col-sm-4"><label>Last Name:</label></div>
+        <div class="col-sm-7">
+          <input type="text" name="lastName" required [(ngModel)]="user.LastName" #lastName="ngModel" class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-6 error" *ngIf="!lastName.valid && (lastName.dirty || lastName.touched)">Last name is required</div>
+
+    <br>
+    
+    <div class="row">
+        <div class="col-sm-4"><label>LinkedIn URL:</label></div>
+        <div class="col-sm-7">
+            <input type="text" name="linkedin" [(ngModel)]="user.LinkedInAccountURL" #linkedin="ngModel" class="form-control">
+        </div>
+    </div>
+    
+    <br>
+    
+    <div class="row">
+        <div class="col-sm-4"><label>Password:</label></div>
+        <div class="col-sm-7">
+            <!-- add regex pattern validation -->
+            <!-- default Identity validations: at least 6 characters, one non-alphanumeric, one lowercase, one uppercase -->
+          <input type="password" name="password" required [(ngModel)]="user.Password" #password="ngModel" class="form-control" minlength="5" validateEqual="cpw">
+        </div>
+    </div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-6 error" *ngIf="!password.valid && (password.dirty || password.touched)">Must be at least 5 characters</div>
+    
+    <br>
+
+    <div class="row">
+        <div class="col-sm-4"><label>Confirm Password:</label></div>
+        <div class="col-sm-7">
+          <input type="password" name="cpw" required [(ngModel)]="user.confirmPassword" #cpw="ngModel" class="form-control" validateEqual="password" reverse="false">
+        </div>
+    </div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-6 error" *ngIf="!cpw.valid && (cpw.dirty || cpw.touched)">Passwords do not match</div>
+    
+    <br>
+    
+    <input type="submit" value="Update" [disabled]="!editForm.form.valid" class="btn btn-primary">
+</form>
