@@ -7,10 +7,9 @@
 </form>
 
 <hr>
-<button (click)="showAll()">Show Questions</button>
 <div class="questions" *ngFor="let q of allQuestions; let idx = index">
     <div class="question">
+        <span><b>{{q.askedByFirstName}} {{q.askedByLastName}} </b>({{q.createdAt | date: 'MM/dd/yyyy HH:mm a'}}) asked:</span>
         <p>{{q.questionText}}</p>
-        <p>Asked by: {{q.askedByFirstName}} {{q.askedByLastName}} on {{q.createdAt}}</p>
     </div>
 </div>

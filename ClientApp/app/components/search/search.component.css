@@ -1,0 +1,15 @@
+.question {
+    width: 85%;
+    margin: 2%;
+    padding: 2%;
+    border-bottom: 1px solid gray;
+}
+
+.question > p {
+    padding: 2%;
+}
+
+.question > span {
+    font-size: 80%;
+    text-align: right;
+}
