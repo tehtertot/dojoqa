@@ -5,6 +5,7 @@ import 'rxjs';
 import { Observable } from 'rxjs/Observable';
 import { QuestionServerResponse } from '../models/QuestionServerResponse';
 import { UserAuthInterceptor } from '../services/userauth.interceptor';
+import { Tag } from '../models/Tag';
 
 @Injectable()
 export class QuestionService {
@@ -17,6 +18,10 @@ export class QuestionService {
 
   getAllQuestions(): Observable<Array<QuestionServerResponse>> {
     return this._http.get<Array<QuestionServerResponse>>("/questions");
+  }
+
+  getAllTags(): Observable<Array<Tag>> {
+    return this._http.get<Array<Tag>>("/questions/tags");
   }
 
 }

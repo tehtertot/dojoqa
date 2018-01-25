@@ -40,6 +40,7 @@ namespace dojoQA.Models
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            base.OnModelCreating(builder);
             builder.Entity<QuestionTag>().HasKey(table => new {
                 table.QuestionId, table.TagId
             });

@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace dojoQA.Models
 {
-    [NotMapped]
     public class QuestionViewModel
     {
         public int QuestionId { get; set; }

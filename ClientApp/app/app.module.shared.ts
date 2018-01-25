@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 
 import { EqualValidator } from './models/equal-validator.directive';
 import { TruncatePipe } from './displays/truncate.pipe';
@@ -22,6 +23,7 @@ import { UserService } from './services/user.service';
 import { QuestionService } from './services/question.service';
 import { AuthGuard } from './services/auth.guard';
 import { UserAuthInterceptor } from './services/userauth.interceptor';
+import { AngularMultiSelect } from 'angular2-multiselect-dropdown/multiselect.component';
 
 @NgModule({
     declarations: [
@@ -52,7 +54,8 @@ import { UserAuthInterceptor } from './services/userauth.interceptor';
             { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthGuard] },
             { path: 'logout', component: LogoutComponent },
             { path: '**', redirectTo: 'home' }
-        ])
+        ]),
+        AngularMultiSelectModule
     ],
     providers: [
         UserService,

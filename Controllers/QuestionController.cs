@@ -58,5 +58,10 @@ namespace dojoQA.Controllers
                     return null;
                 }
         }
+
+        [HttpGet("tags")]
+        public List<Tag> getAllTags() {
+            return _context.Tags.ToList();
+        }
     }
 }
