@@ -16,11 +16,14 @@ namespace dojoQA.Models
 
         public List<Answer> Answers { get; set; }
 
+        public List<QuestionTag> Tags { get; set; }
+
         //additional fields: tags, upvotes, downvotes
 
         public Question()
         {
             Answers = new List<Answer>();
+            Tags = new List<QuestionTag>();
         }
     }
 }

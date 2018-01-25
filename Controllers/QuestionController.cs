@@ -42,20 +42,21 @@ namespace dojoQA.Controllers
             ).ToList();
         }
 
-        [HttpPost("/new")]
-        public bool addQuestion([FromBody] Question question) {
-            try {
+        [HttpPost("new")]
+        public QuestionViewModel addQuestion([FromBody] InputQuestion question) {
                 string userId = _caller.Claims.Single(c => c.Type == "id").Value;
                 ApplicationUser user = _context.Users.SingleOrDefault(u => u.Id == userId);
-                question.AskedBy = user;
-                _context.Questions.Add(question);
-                _context.SaveChanges();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+                Question q = new Question();
+                q.AskedBy = user;
+                q.QuestionText = question.QuestionText;
+                try {
+                    _context.Questions.Add(q);
+                    _context.SaveChanges();
+                    return new QuestionViewModel(q);
+                }
+                catch {
+                    return null;
+                }
         }
     }
 }

@@ -15,5 +15,15 @@ namespace dojoQA.Models
         public string AskedByFirstName { get; set; }
         public string AskedByLastName { get; set; }
         public DateTime CreatedAt { get; set; }
+
+        public QuestionViewModel() { }
+
+        public QuestionViewModel(Question question) {
+            QuestionId = question.QuestionId;
+            QuestionText = question.QuestionText;
+            AskedById = question.AskedBy.Id;
+            AskedByFirstName = question.AskedBy.FirstName;
+            AskedByLastName = question.AskedBy.LastName;
+        }
     }
 }

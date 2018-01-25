@@ -38,6 +38,6 @@ export class HomeComponent {
         this.user = new User();
         localStorage.setItem('auth_token', token);
         this._userService.setLoggedInStatus(true);
-        this._router.navigate(['/search']);
+        this._router.navigate(['/search/questions']);
     }
 }

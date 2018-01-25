@@ -14,6 +14,8 @@ namespace dojoQA.Models
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<QuestionTag> QuestionTags { get; set; }
 
         public override int SaveChanges()
         {
@@ -34,6 +36,13 @@ namespace dojoQA.Models
                 }
                 ((BaseEntity)entity.Entity).UpdatedAt = DateTime.Now;
             }
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<QuestionTag>().HasKey(table => new {
+                table.QuestionId, table.TagId
+            });
         }
     }
 }

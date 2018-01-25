@@ -10,7 +10,6 @@ import { Observable } from 'rxjs/Rx';
 export class UserService {
 
   private loggedIn = false;
-  data: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
 
   constructor(private _http: HttpClient) { }
 
@@ -31,12 +30,12 @@ export class UserService {
   }
 
   getUserInfo(): Observable<UserServerResponse> {
-    let authToken = localStorage.getItem('auth_token');
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json', 
-      'Authorization': `Bearer ${authToken}`
-      });
+    // let authToken = localStorage.getItem('auth_token');
+    // let headers = new HttpHeaders({
+    //   'Content-Type': 'application/json', 
+    //   'Authorization': `Bearer ${authToken}`
+    //   });
     
-    return this._http.get<UserServerResponse>("/profile", {headers});
+    return this._http.get<UserServerResponse>("/profile");
   }
 }

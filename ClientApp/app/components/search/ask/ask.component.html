@@ -1,0 +1,7 @@
+<h1>Ask a Question</h1>
+
+<form (submit)="addQuestion()" #questionForm="ngForm">
+    <textarea name="content" required [(ngModel)]="question.QuestionText" #content="ngModel" class="form-control">
+    </textarea>
+    <input type="submit" value="Ask" [disabled]="!questionForm.form.valid" class="btn btn-primary">
+</form>
