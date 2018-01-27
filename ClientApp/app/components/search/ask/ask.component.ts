@@ -15,7 +15,6 @@ export class AskComponent implements OnInit {
     public question: Question = new Question();
     public tagList: Array<Tag> = [];
     public selectedTags: Array<Tag> =[];
-    public dropdownSettings = {};
     public dropdownList: Array<Object>;
 
     constructor(private _questionService: QuestionService, private _router: Router) { }
@@ -24,18 +23,7 @@ export class AskComponent implements OnInit {
         this._questionService.getAllTags()
             .subscribe((tags) => {
                 this.tagList = tags;
-            });
-        this.dropdownSettings = { 
-            singleSelection: false, 
-            text:"Select Tags",
-            selectAllText:'Select All',
-            unSelectAllText:'UnSelect All',
-            enableSearchFilter: true,
-            limitSelection: 4,
-            enableCheckAll: false,
-            searchAutofocus: true
-            };       
-        
+            });    
     }
 
     public addQuestion() {
@@ -52,17 +40,5 @@ export class AskComponent implements OnInit {
         }
     }
 
-    onItemSelect(item:Tag) {
-        console.log(this.selectedTags);
-    }
-    OnItemDeSelect(item:Tag){
-        console.log(this.selectedTags);
-    }
-    onSelectAll(items: any){
-        console.log(items);
-    }
-    onDeSelectAll(items: any){
-        console.log(items);
-    }
         
 }

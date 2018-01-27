@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
+import { HttpModule } from '@angular/http';
 
 import { EqualValidator } from './models/equal-validator.directive';
 import { TruncatePipe } from './displays/truncate.pipe';
@@ -23,7 +23,7 @@ import { UserService } from './services/user.service';
 import { QuestionService } from './services/question.service';
 import { AuthGuard } from './services/auth.guard';
 import { UserAuthInterceptor } from './services/userauth.interceptor';
-import { AngularMultiSelect } from 'angular2-multiselect-dropdown/multiselect.component';
+// import { AngularMultiSelect } from 'angular2-multiselect-dropdown/multiselect.component';
 
 @NgModule({
     declarations: [
@@ -42,6 +42,7 @@ import { AngularMultiSelect } from 'angular2-multiselect-dropdown/multiselect.co
     imports: [
         CommonModule,
         HttpClientModule,
+        HttpModule,
         FormsModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -55,7 +56,6 @@ import { AngularMultiSelect } from 'angular2-multiselect-dropdown/multiselect.co
             { path: 'logout', component: LogoutComponent },
             { path: '**', redirectTo: 'home' }
         ]),
-        AngularMultiSelectModule
     ],
     providers: [
         UserService,
