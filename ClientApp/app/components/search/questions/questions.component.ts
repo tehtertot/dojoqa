@@ -24,7 +24,7 @@ export class QuestionsComponent {
     }
             
     public answerQuestion(id: number) {
-        this._router.navigate(['/questions', {id: id}]);
+        this._router.navigate(['/search/questions', id]);
     }
 
     public askQuestion() {

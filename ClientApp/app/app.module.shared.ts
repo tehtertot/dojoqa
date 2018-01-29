@@ -19,12 +19,12 @@ import { SearchComponent } from './components/search/search.component';
 import { QuestionsComponent } from './components/search/questions/questions.component';
 import { AskComponent } from './components/search/ask/ask.component';
 import { LogoutComponent } from './components/home/logout.component';
+import { ShowQuestionComponent } from './components/search/showquestion/show.component';
 
 import { UserService } from './services/user.service';
 import { QuestionService } from './services/question.service';
 import { AuthGuard } from './services/auth.guard';
 import { UserAuthInterceptor } from './services/userauth.interceptor';
-// import { AngularMultiSelect } from 'angular2-multiselect-dropdown/multiselect.component';
 
 @NgModule({
     declarations: [
@@ -36,6 +36,7 @@ import { UserAuthInterceptor } from './services/userauth.interceptor';
         ProfileComponent,
         LogoutComponent,
         QuestionsComponent,
+        ShowQuestionComponent,
         AskComponent,
         EqualValidator,
         TruncatePipe
@@ -52,7 +53,8 @@ import { UserAuthInterceptor } from './services/userauth.interceptor';
             { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
             { path: 'search', component: SearchComponent, canActivate: [AuthGuard], children: [
                 { path: 'questions', component: QuestionsComponent },
-                { path: 'ask', component: AskComponent }
+                { path: 'ask', component: AskComponent },
+                { path: 'questions/:id', component: ShowQuestionComponent }
             ] },
             { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthGuard] },
             { path: 'logout', component: LogoutComponent },

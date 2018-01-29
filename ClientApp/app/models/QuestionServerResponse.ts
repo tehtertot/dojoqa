@@ -1,3 +1,5 @@
+import { Answer } from './Answer';
+
 export class QuestionServerResponse {
     questionId: number;
     questionText: string;
@@ -5,4 +7,5 @@ export class QuestionServerResponse {
     askedByLastName: string;
     askedById: string;
     createdAt: Date;
+    answers: Answer[];
 }

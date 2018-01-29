@@ -3,10 +3,22 @@
 <form (submit)="addQuestion()" #questionForm="ngForm">
     <textarea name="content" required [(ngModel)]="question.QuestionText" #content="ngModel" class="form-control">
     </textarea>
-    <div class="row form-group">
-    <select name="allTags" class="form-control" (change)="addTag($event.target.value)">
-        <option *ngFor="let t of tagList" value={{index}}>{{t.tagId}} - {{t.name}}</option>
+    
+    <div class="col-sm-3">
+    <select name="allTags" class="form-control col-sm-4" (change)="addTag($event.target.value)">
+        <option value="">---select tag---</option>
+        <option *ngFor="let t of tagList; let i = index" value={{i}}>{{t.name}}</option>
     </select>
     </div>
-    <input type="submit" value="Ask" [disabled]="!questionForm.form.valid" class="btn btn-primary">
+    
+    <div class="col-sm-8">
+        <label class="tag" *ngFor="let oneTag of question.Tags; let idx = index">{{oneTag.name}}<span class="close" aria-label="Close" (click)="removeTag(idx)"><span aria-hidden="true">&times;</span></span></label>
+    </div>
+    
+    <br>
+    
+    <div class="col-sm-12">
+        <input type="submit" value="Ask" [disabled]="!questionForm.form.valid" class="btn btn-primary">
+    </div>
 </form>
+

@@ -49,6 +49,12 @@ namespace dojoQA.Controllers
                 Question q = new Question();
                 q.AskedBy = user;
                 q.QuestionText = question.QuestionText;
+                //save tags
+                foreach (TagViewModel item in question.Tags) {
+                    // _context.QuestionTags.Add(new QuestionTag());
+                    q.Tags.Add(new QuestionTag(item.tagId));
+                }
+
                 try {
                     _context.Questions.Add(q);
                     _context.SaveChanges();
@@ -73,7 +79,7 @@ namespace dojoQA.Controllers
                     tvm.categoryName = c.Name;
                     return tvm;
                 })
-            .ToList();
+            .OrderBy(tvm => tvm.name).ToList();
         }
     }
 }

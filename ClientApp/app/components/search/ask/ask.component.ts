@@ -15,15 +15,12 @@ export class AskComponent implements OnInit {
     public question: Question = new Question();
     public tagList: Array<Tag> = [];
     public selectedTags: Array<Tag> = [];
-    public dropdownList: Array<Object>;
 
     constructor(private _questionService: QuestionService, private _router: Router) { }
             
     ngOnInit() {
         this._questionService.getAllTags()
             .subscribe((tags) => {
-                console.log("this is the incoming tags list");
-                console.log(tags);
                 this.tagList = tags;
             });    
     }
@@ -42,11 +39,12 @@ export class AskComponent implements OnInit {
         }
     }
 
-    public addTag(tId: number) {
-        console.log("Tag selected:");
-        console.log(tId);
-        
+    public removeTag(tagIndex: number) {
+        this.tagList.push(this.question.Tags.splice(tagIndex, 1)[0]);
     }
 
+    public addTag(tagIndex: number) {
+        this.question.Tags.push(this.tagList.splice(tagIndex, 1)[0]);        
+    }
         
 }

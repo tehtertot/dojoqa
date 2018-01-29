@@ -9,5 +9,11 @@ namespace dojoQA.Models
 
         public int TagId { get; set; }
         public Tag Tag { get; set; }
+
+        public QuestionTag() { }
+
+        public QuestionTag(int tag) {
+            TagId = tag;
+        }
     }
 }
