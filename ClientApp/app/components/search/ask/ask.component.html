@@ -3,5 +3,10 @@
 <form (submit)="addQuestion()" #questionForm="ngForm">
     <textarea name="content" required [(ngModel)]="question.QuestionText" #content="ngModel" class="form-control">
     </textarea>
+    <div class="row form-group">
+    <select name="allTags" class="form-control" (change)="addTag($event.target.value)">
+        <option *ngFor="let t of tagList" value={{index}}>{{t.tagId}} - {{t.name}}</option>
+    </select>
+    </div>
     <input type="submit" value="Ask" [disabled]="!questionForm.form.valid" class="btn btn-primary">
 </form>

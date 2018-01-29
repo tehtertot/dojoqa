@@ -14,7 +14,7 @@ import { Tag } from '../../../models/Tag';
 export class AskComponent implements OnInit {
     public question: Question = new Question();
     public tagList: Array<Tag> = [];
-    public selectedTags: Array<Tag> =[];
+    public selectedTags: Array<Tag> = [];
     public dropdownList: Array<Object>;
 
     constructor(private _questionService: QuestionService, private _router: Router) { }
@@ -22,6 +22,8 @@ export class AskComponent implements OnInit {
     ngOnInit() {
         this._questionService.getAllTags()
             .subscribe((tags) => {
+                console.log("this is the incoming tags list");
+                console.log(tags);
                 this.tagList = tags;
             });    
     }
@@ -38,6 +40,12 @@ export class AskComponent implements OnInit {
                     this._router.navigate(['/search/questions']);
                 })
         }
+    }
+
+    public addTag(tId: number) {
+        console.log("Tag selected:");
+        console.log(tId);
+        
     }
 
         

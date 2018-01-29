@@ -9,6 +9,7 @@ namespace dojoQA.Models
         [Key]
         public int TagId { get; set; }
         public string Name { get; set; }
+        public Category Category { get; set; }
 
         public List<QuestionTag> Questions { get; set; }
 

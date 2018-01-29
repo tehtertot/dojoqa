@@ -16,6 +16,7 @@ namespace dojoQA.Models
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<QuestionTag> QuestionTags { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         public override int SaveChanges()
         {

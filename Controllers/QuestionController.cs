@@ -60,8 +60,20 @@ namespace dojoQA.Controllers
         }
 
         [HttpGet("tags")]
-        public List<Tag> getAllTags() {
-            return _context.Tags.ToList();
+        public List<TagViewModel> getAllTags() {
+            return _context.Tags.ToList().Join(
+                _context.Categories,
+                t => t.Category,
+                c => c,
+                (t, c) => {
+                    TagViewModel tvm = new TagViewModel();
+                    tvm.tagId = t.TagId;
+                    tvm.name = t.Name;
+                    tvm.categoryId = c.CategoryId;
+                    tvm.categoryName = c.Name;
+                    return tvm;
+                })
+            .ToList();
         }
     }
 }

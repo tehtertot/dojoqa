@@ -11,9 +11,10 @@ using System;
 namespace dojoQA.Migrations
 {
     [DbContext(typeof(DojOverflowContext))]
-    partial class DojOverflowContextModelSnapshot : ModelSnapshot
+    [Migration("20180129005926_ChangeCategoryTableName")]
+    partial class ChangeCategoryTableName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

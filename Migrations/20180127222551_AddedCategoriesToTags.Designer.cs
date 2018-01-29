@@ -11,9 +11,10 @@ using System;
 namespace dojoQA.Migrations
 {
     [DbContext(typeof(DojOverflowContext))]
-    partial class DojOverflowContextModelSnapshot : ModelSnapshot
+    [Migration("20180127222551_AddedCategoriesToTags")]
+    partial class AddedCategoriesToTags
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -117,7 +118,7 @@ namespace dojoQA.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("dojoQA.Models.Dojo", b =>
