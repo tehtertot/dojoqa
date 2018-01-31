@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Question } from '../../../models/Question';
-import { QuestionServerResponse } from '../../../models/QuestionServerResponse';
+import { QuestionWithAnswersResponse } from '../../../models/QuestionWithAnswersResponse';
+import { Answer } from '../../../models/Answer';
 
 import { QuestionService } from '../../../services/question.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,15 +11,32 @@ import { ActivatedRoute, Router } from '@angular/router';
     templateUrl: './show.component.html',
     styleUrls: ['./show.component.css']
 })
-export class ShowQuestionComponent {   
+export class ShowQuestionComponent implements OnInit {   
 
     private id : string | null;     
-    private question: QuestionServerResponse;
+    private question: QuestionWithAnswersResponse;
+    private newAnswer : Answer = new Answer();
 
-    constructor(private _route: ActivatedRoute, private _router: Router) {
+    constructor(private _route: ActivatedRoute, private _router: Router, private _questionService: QuestionService) {
         this._route.paramMap.subscribe(params => {
             this.id = params.get('id');
-            
-        })
+        });
+    }
+
+    ngOnInit() {
+        this._questionService.getQuestion(this.id)
+            .subscribe((question) => {
+                console.log("received question");
+                console.log(question);
+                this.question = question;
+            })
+    }
+
+    submitAnswer() {
+        this._questionService.addAnswer(this.newAnswer, this.id)
+            .subscribe((updatedQuestion) => {
+                this.question = updatedQuestion;
+                this._router.navigate(['/search/questions']);
+            })
     }
 }

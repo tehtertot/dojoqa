@@ -81,5 +81,26 @@ namespace dojoQA.Controllers
                 })
             .OrderBy(tvm => tvm.name).ToList();
         }
+
+        [HttpGet("{id:int}")]
+        public QuestionWithAnswersViewModel getQuestion(int id) {
+            Question question = _context.Questions.Include(q => q.AskedBy).Include(q => q.Answers).ThenInclude(a => a.AnsweredBy).SingleOrDefault(q => q.QuestionId == id);
+            QuestionWithAnswersViewModel returnedQ =  new QuestionWithAnswersViewModel(question);
+            return returnedQ;
+        }
+
+        [HttpPost("answer/{id:int}")]
+        public QuestionWithAnswersViewModel addAnswer([FromBody] AnswerView answerView, int id) {
+            string userId = _caller.Claims.Single(c => c.Type == "id").Value;
+            ApplicationUser user = _context.Users.SingleOrDefault(u => u.Id == userId);
+                
+            Answer a = new Answer();
+            a.AnsweredBy = user;
+            a.AnswerText = answerView.AnswerText;
+            a.Question = _context.Questions.Single(q => q.QuestionId == id);
+            _context.Answers.Add(a);
+            _context.SaveChanges();
+            return new QuestionWithAnswersViewModel(_context.Questions.Single(q => q.QuestionId == id));
+        }
     }
 }

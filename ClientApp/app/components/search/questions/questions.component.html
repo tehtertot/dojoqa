@@ -1,5 +1,6 @@
 <h1>Questions</h1>
-<div class="questions" *ngFor="let q of allQuestions; let idx = index">
+<div class="search"><label>Search</label> <input type="text" class="form-control" name="searchBar" class="searchBar" [(ngModel)]="searchStr"></div>
+  <div class="questions" *ngFor="let q of allQuestions | searchfilter:searchStr">
     <div class="question">
         <span><b>{{q.askedByFirstName}} {{q.askedByLastName}} </b>({{q.createdAt | date: 'dd MMM yyyy HH:mm a'}}) asked:</span>
         <p>{{q.questionText | truncate : 125}}</p>

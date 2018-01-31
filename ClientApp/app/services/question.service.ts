@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Question } from '../models/Question';
+import { Answer } from '../models/Answer';
+import { QuestionWithAnswersResponse } from '../models/QuestionWithAnswersResponse';
 import 'rxjs';
 import { Observable } from 'rxjs/Observable';
 import { QuestionServerResponse } from '../models/QuestionServerResponse';
@@ -24,4 +26,11 @@ export class QuestionService {
     return this._http.get<Array<Tag>>("/questions/tags");
   }
 
+  getQuestion(id: string | null): Observable<QuestionWithAnswersResponse> {
+    return this._http.get<QuestionWithAnswersResponse>(`/questions/${id}`);
+  }
+
+  addAnswer(answer: Answer, id: string | null) : Observable<QuestionWithAnswersResponse> {
+    return this._http.post<QuestionWithAnswersResponse>(`/questions/answer/${id}`, answer);
+  }
 }

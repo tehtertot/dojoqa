@@ -12,7 +12,8 @@ import { Router } from '@angular/router';
     styleUrls: ['./questions.component.css']
 })
 export class QuestionsComponent {
-    public allQuestions: Array<QuestionServerResponse>;
+    private allQuestions: Array<QuestionServerResponse>;
+    private searchStr: string = "";
 
     constructor(private _questionService: QuestionService, private _router: Router) { }
     

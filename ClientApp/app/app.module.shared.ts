@@ -9,6 +9,7 @@ import { HttpModule } from '@angular/http';
 
 import { EqualValidator } from './models/equal-validator.directive';
 import { TruncatePipe } from './displays/truncate.pipe';
+import { SearchFilterPipe } from './displays/searchfilter.pipe';
 
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
@@ -39,7 +40,8 @@ import { UserAuthInterceptor } from './services/userauth.interceptor';
         ShowQuestionComponent,
         AskComponent,
         EqualValidator,
-        TruncatePipe
+        TruncatePipe,
+        SearchFilterPipe
     ],
     imports: [
         CommonModule,

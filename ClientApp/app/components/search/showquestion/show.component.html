@@ -1,2 +1,18 @@
-<p>hello</p>
-<p>{{id}}</p>
+<p></p>
+<h5>{{question.questionText}}</h5>
+<p>{{question.askedByFirstName}}</p>
+
+<hr>
+<h4>Answers</h4>
+<p *ngFor="let a of question.answers"><a href="/users/{{a.answeredById">{{a.answeredByName}}</a> said: {{a.answerText}}</p>
+
+<hr>
+<h3>Add Your Answer</h3>
+<form (submit)="submitAnswer()" #answerForm="ngForm">
+    <textarea name="content" required [(ngModel)]="newAnswer.answerText" #content="ngModel" class="form-control">
+    </textarea>
+    <br>
+    <div class="col-sm-12">
+        <input type="submit" value="Answer" [disabled]="!answerForm.form.valid" class="btn btn-success">
+    </div>
+</form>

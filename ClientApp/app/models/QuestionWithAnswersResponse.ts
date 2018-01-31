@@ -1,11 +1,11 @@
-import { Tag } from "./Tag";
+import { Answer } from './Answer';
 
-export class QuestionServerResponse {
+export class QuestionWithAnswersResponse {
     questionId: number;
     questionText: string;
     askedByFirstName: string;
     askedByLastName: string;
     askedById: string;
     createdAt: Date;
-    tags: Tag[];
+    answers: Answer[] = [];
 }
