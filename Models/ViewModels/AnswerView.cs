@@ -1,3 +1,5 @@
+using System;
+
 namespace dojoQA.Models
 {
     public class AnswerView {
@@ -5,5 +7,7 @@ namespace dojoQA.Models
         public string AnswerText { get; set; }
         public string AnsweredByName { get; set; }
         public string AnsweredById { get; set; }
+        public int Votes { get; set; }
+        public DateTime AnsweredDate { get; set; }
     }
 }

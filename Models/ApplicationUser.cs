@@ -15,5 +15,9 @@ namespace dojoQA.Models
         public List<Question> QuestionsAsked { get; set; }
 
         public List<Answer> AnswersProvided { get; set; }
+
+        public List<QuestionVote> QuestionsVotedOn { get; set; }
+
+        public List<AnswerVote> AnswersVotedOn { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace dojoQA.Models
         public string AskedByFirstName { get; set; }
         public string AskedByLastName { get; set; }
         public DateTime CreatedAt { get; set; }
+        public List<TagViewModel> Tags { get; set; }
 
         public QuestionViewModel() { }
 
@@ -22,6 +23,8 @@ namespace dojoQA.Models
             AskedById = question.AskedBy.Id;
             AskedByFirstName = question.AskedBy.FirstName;
             AskedByLastName = question.AskedBy.LastName;
+            Tags = new List<TagViewModel>();
+            
         }
     }
 }

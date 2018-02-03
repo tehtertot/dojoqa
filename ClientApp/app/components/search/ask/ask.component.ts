@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Question } from '../../../models/Question';
-import { QuestionServerResponse } from '../../../models/QuestionServerResponse';
+import { Router } from '@angular/router';
 
 import { QuestionService } from '../../../services/question.service';
-import { Router } from '@angular/router';
+
+import { Question } from '../../../models/Question';
+import { QuestionServerResponse } from '../../../models/QuestionServerResponse';
 import { Tag } from '../../../models/Tag';
+import { CategoryTag } from '../../../models/CategoryTag';
+
 
 @Component({
     selector: 'ask',
@@ -13,7 +16,7 @@ import { Tag } from '../../../models/Tag';
 })
 export class AskComponent implements OnInit {
     public question: Question = new Question();
-    public tagList: Array<Tag> = [];
+    public tagList: Array<CategoryTag>;
     public selectedTags: Array<Tag> = [];
 
     constructor(private _questionService: QuestionService, private _router: Router) { }
@@ -40,11 +43,11 @@ export class AskComponent implements OnInit {
     }
 
     public removeTag(tagIndex: number) {
-        this.tagList.push(this.question.Tags.splice(tagIndex, 1)[0]);
+        // this.tagList.push(this.question.Tags.splice(tagIndex, 1)[0]);
     }
 
     public addTag(tagIndex: number) {
-        this.question.Tags.push(this.tagList.splice(tagIndex, 1)[0]);        
+        // this.question.Tags.push(this.tagList.splice(tagIndex, 1)[0]);        
     }
         
 }

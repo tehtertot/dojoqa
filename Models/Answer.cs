@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace dojoQA.Models
@@ -14,8 +15,12 @@ namespace dojoQA.Models
 
         public Question Question { get; set; }
 
-        //additional fields: upvotes, downvotes
+        public int Votes { get; set; }
 
-        public Answer() { }
+        public List<AnswerVote> VotesForAnswer { get; set; }
+
+        public Answer() { 
+            VotesForAnswer = new List<AnswerVote>();
+        }
     }
 }

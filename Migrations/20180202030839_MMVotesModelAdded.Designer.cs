@@ -11,9 +11,10 @@ using System;
 namespace dojoQA.Migrations
 {
     [DbContext(typeof(DojOverflowContext))]
-    partial class DojOverflowContextModelSnapshot : ModelSnapshot
+    [Migration("20180202030839_MMVotesModelAdded")]
+    partial class MMVotesModelAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,8 +36,6 @@ namespace dojoQA.Migrations
 
                     b.Property<DateTime>("UpdatedAt");
 
-                    b.Property<int>("Votes");
-
                     b.HasKey("AnswerId");
 
                     b.HasIndex("AnsweredById");
@@ -44,28 +43,6 @@ namespace dojoQA.Migrations
                     b.HasIndex("QuestionId");
 
                     b.ToTable("Answers");
-                });
-
-            modelBuilder.Entity("dojoQA.Models.AnswerVote", b =>
-                {
-                    b.Property<int>("AnswerVoteId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("AnswerId");
-
-                    b.Property<DateTime>("CreatedAt");
-
-                    b.Property<DateTime>("UpdatedAt");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("AnswerVoteId");
-
-                    b.HasIndex("AnswerId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AnswerVotes");
                 });
 
             modelBuilder.Entity("dojoQA.Models.ApplicationUser", b =>
@@ -353,18 +330,6 @@ namespace dojoQA.Migrations
                     b.HasOne("dojoQA.Models.Question", "Question")
                         .WithMany("Answers")
                         .HasForeignKey("QuestionId");
-                });
-
-            modelBuilder.Entity("dojoQA.Models.AnswerVote", b =>
-                {
-                    b.HasOne("dojoQA.Models.Answer", "Answer")
-                        .WithMany("VotesForAnswer")
-                        .HasForeignKey("AnswerId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("dojoQA.Models.ApplicationUser", "User")
-                        .WithMany("AnswersVotedOn")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("dojoQA.Models.ApplicationUser", b =>

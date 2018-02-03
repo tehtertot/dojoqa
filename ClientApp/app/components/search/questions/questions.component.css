@@ -1,15 +1,46 @@
 .question {
-    width: 85%;
+    width: 90%;
     margin: 2%;
     padding: 2%;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid lightgray;
+    border-bottom-width: 50%;
+    vertical-align: top;
 }
 
-.question > p {
-    padding: 2%;
-}
+    .left-summary {
+        font-size: 85%;
+        text-align: center;
+    }
+        .left-summary > p {
+            text-align: center;
+        }
 
-.question > span {
-    font-size: 80%;
-    text-align: right;
+        .answer {
+            color: darkgreen;
+        }
+        .upvote {
+            color: purple;
+        }
+
+    .right-question {
+        border-left: 1px solid lightgray;
+    }
+
+        .question-header {
+            font-size: 80%;
+        }
+
+            .tag {
+                font-size: 70%;
+                margin-right: 10px;
+            }
+
+            .tag-box {
+                border: 0.5px solid gray;
+                padding: 3px;
+                border-radius: 3px;
+            }
+
+.footer > p {
+    text-align: center;
 }

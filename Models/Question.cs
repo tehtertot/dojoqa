@@ -18,7 +18,9 @@ namespace dojoQA.Models
 
         public List<QuestionTag> Tags { get; set; }
 
-        //additional fields: tags, upvotes, downvotes
+        public int Upvotes { get; set; }
+
+        public List<QuestionVote> VotesForQuestion { get; set; }
 
         public Question()
         {

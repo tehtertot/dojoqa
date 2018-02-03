@@ -5,4 +5,6 @@ export class Answer {
     answerText: string;
     answeredById: string;
     answeredByName: string;
+    answeredDate: Date;
+    votes: number;
 }

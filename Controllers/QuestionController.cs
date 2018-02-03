@@ -24,22 +24,13 @@ namespace dojoQA.Controllers
         }
 
         [HttpGet("")]
-        public List<QuestionViewModel> getAllQuestions() {
-            return _context.Questions.ToList().Join(
-                _context.ApplicationUsers,
-                q => q.AskedBy,
-                u => u,
-                (q, u) => { 
-                    QuestionViewModel qvm = new QuestionViewModel();
-                    qvm.QuestionId = q.QuestionId;
-                    qvm.QuestionText = q.QuestionText;
-                    qvm.AskedById = u.Id;
-                    qvm.AskedByFirstName = u.FirstName;
-                    qvm.AskedByLastName = u.LastName;
-                    qvm.CreatedAt = q.CreatedAt;
-                    return qvm;
-                }
-            ).ToList();
+        public List<QuestionWithAnswersViewModel> getAllQuestions() {
+            List<Question> allQuestions = _context.Questions.Include(q => q.AskedBy).Include(q => q.Answers).ThenInclude(a => a.AnsweredBy).Include(q => q.Tags).ThenInclude(t => t.Tag).ThenInclude(x => x.Category).OrderByDescending(q => q.CreatedAt).ToList();
+            List<QuestionWithAnswersViewModel> allQuestionsForView = new List<QuestionWithAnswersViewModel>();
+            foreach (Question q in allQuestions) {
+                allQuestionsForView.Add(new QuestionWithAnswersViewModel(q));
+            }
+            return allQuestionsForView;
         }
 
         [HttpPost("new")]
@@ -65,7 +56,7 @@ namespace dojoQA.Controllers
                 }
         }
 
-        [HttpGet("tags")]
+        // [HttpGet("tags")]
         public List<TagViewModel> getAllTags() {
             return _context.Tags.ToList().Join(
                 _context.Categories,
@@ -82,10 +73,31 @@ namespace dojoQA.Controllers
             .OrderBy(tvm => tvm.name).ToList();
         }
 
+        [HttpGet("tags")]
+        public List<CategoryWithTagsViewModel> getAllTagsByCategories() {
+            List<Category> allCategories = _context.Categories.Include(c => c.AssociatedTags).ToList();
+            List<CategoryWithTagsViewModel> categoriesWithTags = new List<CategoryWithTagsViewModel>();
+            foreach (Category c in allCategories)
+            {
+                CategoryWithTagsViewModel cwtvm = new CategoryWithTagsViewModel(c);
+                categoriesWithTags.Add(cwtvm);
+            }
+            return categoriesWithTags;
+        }
+
         [HttpGet("{id:int}")]
         public QuestionWithAnswersViewModel getQuestion(int id) {
-            Question question = _context.Questions.Include(q => q.AskedBy).Include(q => q.Answers).ThenInclude(a => a.AnsweredBy).SingleOrDefault(q => q.QuestionId == id);
+            string userId = _caller.Claims.Single(c => c.Type == "id").Value;
+            
+            //get full question from db (with all joins)
+            Question question = _context.Questions.Include(q => q.Tags).ThenInclude(qt => qt.Tag).ThenInclude(t => t.Category).Include(q => q.AskedBy).Include(q => q.Answers).ThenInclude(a => a.AnsweredBy).SingleOrDefault(q => q.QuestionId == id);
+            
+            //transform into view model
             QuestionWithAnswersViewModel returnedQ =  new QuestionWithAnswersViewModel(question);
+            
+            //check if user has voted
+            returnedQ.CanVote = _context.QuestionVotes.SingleOrDefault(q => q.QuestionId == id && q.UserId == userId) == null;
+            
             return returnedQ;
         }
 
@@ -101,6 +113,37 @@ namespace dojoQA.Controllers
             _context.Answers.Add(a);
             _context.SaveChanges();
             return new QuestionWithAnswersViewModel(_context.Questions.Single(q => q.QuestionId == id));
+        }
+
+        [HttpGet("vote/{id:int}")]
+        public void upvoteQuestion(int id) {
+            string userId = _caller.Claims.Single(c => c.Type == "id").Value;
+            Question question = _context.Questions.SingleOrDefault(q => q.QuestionId == id);
+
+            //if user has not already voted for
+            if (_context.QuestionVotes.SingleOrDefault(q => q.QuestionId == id && q.UserId == userId) == null) {
+                QuestionVote qv = new QuestionVote();
+                qv.QuestionId = id;
+                qv.UserId = userId;
+                question.Upvotes++;
+                _context.QuestionVotes.Add(qv);
+                _context.SaveChanges();
+            }
+        }
+
+        [HttpGet("answer/vote/{id:int}")]
+        public void upvoteAnswer(int id) {
+            string userId = _caller.Claims.Single(c => c.Type == "id").Value;
+            Answer answer = _context.Answers.SingleOrDefault(a => a.AnswerId == id);
+
+            if (_context.AnswerVotes.SingleOrDefault(a => a.AnswerId == id && a.UserId == userId) == null) {
+                AnswerVote av = new AnswerVote();
+                av.AnswerId = id;
+                av.UserId = userId;
+                answer.Votes++;
+                _context.AnswerVotes.Add(av);
+                _context.SaveChanges();
+            }
         }
     }
 }
