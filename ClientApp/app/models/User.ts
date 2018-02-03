@@ -8,4 +8,5 @@ export class User {
     LastName: string;
     Dojo: number;
     LinkedInAccountURL: string;
+    CurrentStack: number;
 }

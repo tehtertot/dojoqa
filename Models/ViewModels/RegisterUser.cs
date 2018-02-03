@@ -10,6 +10,7 @@ namespace dojoQA.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-    
+        public int CurrentStack { get; set; }    
+        public string LinkedInAccountURL { get; set; }
     }
 }

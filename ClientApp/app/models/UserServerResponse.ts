@@ -4,4 +4,5 @@ export class UserServerResponse {
     lastName: string;
     linkedInAccountURL: string;
     password: string;
+    currentStack: number;
 }

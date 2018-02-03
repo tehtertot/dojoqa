@@ -11,9 +11,10 @@ using System;
 namespace dojoQA.Migrations
 {
     [DbContext(typeof(DojOverflowContext))]
-    partial class DojOverflowContextModelSnapshot : ModelSnapshot
+    [Migration("20180203174255_AddedCurrentUserStackEnum")]
+    partial class AddedCurrentUserStackEnum
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { User } from '../../models/User';
-
 import { UserService } from '../../services/user.service';
+
+import { User } from '../../models/User';
+import { CategoryTag } from '../../models/CategoryTag';
+import { UserServerResponse } from '../../models/UserServerResponse';
+
 
 @Component({
     selector: 'profile',
@@ -11,19 +14,33 @@ import { UserService } from '../../services/user.service';
 })
 export class ProfileComponent {
     user: User = new User();
+    stacks: string[];
 
     constructor(private _userService: UserService, private _router: Router) { }
 
     ngOnInit() {
+        this.stacks = this._userService.getStacks();
         this._userService.getUserInfo()
             .subscribe(
                 (userInfo) => {
-                    this.user.FirstName = userInfo.firstName;
-                    this.user.LastName = userInfo.lastName;
-                    this.user.Email = userInfo.email;
-                    this.user.Password = userInfo.password;
-                    this.user.LinkedInAccountURL = userInfo.linkedInAccountURL;
+                    this.setUser(userInfo);
                 },
                 (err) => console.log(err));
+    }
+
+    updateProfile() {
+        this._userService.updateUser(this.user)
+            .subscribe((userInfo) => {
+                this.setUser(userInfo);
+            })
+    }
+
+    private setUser(fromServer: UserServerResponse) {
+        this.user.FirstName = fromServer.firstName;
+        this.user.LastName = fromServer.lastName;
+        this.user.Email = fromServer.email;
+        this.user.Password = fromServer.password;
+        this.user.LinkedInAccountURL = fromServer.linkedInAccountURL;
+        this.user.CurrentStack = fromServer.currentStack;
     }
 }

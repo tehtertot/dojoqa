@@ -8,6 +8,7 @@ namespace dojoQA.Models
     public class QuestionWithAnswersViewModel
     {
         public int QuestionId { get; set; }
+        public string QuestionTitle { get; set; }
         public string QuestionText { get; set; }
         public List<AnswerView> Answers { get; set; }
         public int Votes { get; set; }
@@ -22,6 +23,7 @@ namespace dojoQA.Models
 
         public QuestionWithAnswersViewModel(Question question) {
             QuestionId = question.QuestionId;
+            QuestionTitle = question.QuestionTitle;
             QuestionText = question.QuestionText;
             Votes = question.Upvotes;
             AskedById = question.AskedBy.Id;

@@ -12,7 +12,7 @@ export class SearchFilterPipe implements PipeTransform {
     transform(value: Array<QuestionServerResponse>, searchStr: string, searchTags: string[]): Array<QuestionServerResponse> {
         if (!value || searchStr == "") { return value; }
         console.log(`searchtags are: ${searchTags}`);
-        var options = { keys: ['questionText'] };
+        var options = { keys: ['questionText', 'questionTitle'] };
 
         var filteredQuestions;
         //filtering for questions only with ALL specified tags

@@ -1,5 +1,15 @@
 <h1>Edit Your Info</h1>
-<form (submit)="edit()" #editForm="ngForm">
+<form (submit)="updateProfile()" #editForm="ngForm">
+    <div class="row">
+        <div class="col-sm-4"><label>Email:</label></div>
+        <div class="col-sm-7">
+            <input type="text" name="email" disabled [(ngModel)]="user.Email" #email="ngModel" class="form-control">
+        </div>
+    </div>
+
+    <br>
+
+    
     <div class="row">
         <div class="col-sm-4"><label>First Name:</label></div>
         <div class="col-sm-7">
@@ -30,29 +40,16 @@
     </div>
     
     <br>
-    
-    <div class="row">
-        <div class="col-sm-4"><label>Password:</label></div>
-        <div class="col-sm-7">
-            <!-- add regex pattern validation -->
-            <!-- default Identity validations: at least 6 characters, one non-alphanumeric, one lowercase, one uppercase -->
-          <input type="password" name="password" required [(ngModel)]="user.Password" #password="ngModel" class="form-control" minlength="5" validateEqual="cpw">
-        </div>
-    </div>
-    <div class="col-sm-4"></div>
-    <div class="col-sm-6 error" *ngIf="!password.valid && (password.dirty || password.touched)">Must be at least 5 characters</div>
-    
-    <br>
 
-    <div class="row">
-        <div class="col-sm-4"><label>Confirm Password:</label></div>
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Current Stack:</label>
         <div class="col-sm-7">
-          <input type="password" name="cpw" required [(ngModel)]="user.confirmPassword" #cpw="ngModel" class="form-control" validateEqual="password" reverse="false">
+            <select id="select" class="form-control" name="stack" #stack="ngModel" [(ngModel)]="user.CurrentStack">
+                <option *ngFor = "let s of stacks; let idx = index" [ngValue]="idx">{{s}}</option>
+            </select>
         </div>
     </div>
-    <div class="col-sm-4"></div>
-    <div class="col-sm-6 error" *ngIf="!cpw.valid && (cpw.dirty || cpw.touched)">Passwords do not match</div>
-    
+
     <br>
     
     <input type="submit" value="Update" [disabled]="!editForm.form.valid" class="btn btn-primary">

@@ -11,9 +11,10 @@ using System;
 namespace dojoQA.Migrations
 {
     [DbContext(typeof(DojOverflowContext))]
-    partial class DojOverflowContextModelSnapshot : ModelSnapshot
+    [Migration("20180203062728_AddedQuestionTitle")]
+    partial class AddedQuestionTitle
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,8 +78,6 @@ namespace dojoQA.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
-
-                    b.Property<int?>("CurrentStack");
 
                     b.Property<int?>("DojoId");
 

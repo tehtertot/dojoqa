@@ -48,7 +48,8 @@ namespace dojoQA.Controllers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 UserName = user.Email,
-                Email = user.Email
+                Email = user.Email,
+                CurrentStack = (CurrentStack) user.CurrentStack
             };
             IdentityResult result = await _userManager.CreateAsync(newUser, user.Password);
             if (result.Succeeded) {

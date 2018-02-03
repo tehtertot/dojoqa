@@ -38,7 +38,8 @@
         </div>
         <div class="col-sm-9 right-question">
             <p class="question-header"><b>{{q.askedByFirstName}} {{q.askedByLastName}} </b>({{q.createdAt | date: 'dd MMM yyyy HH:mm a'}}) asked:</p>
-            <p><a (click)="answerQuestion(q.questionId)">{{q.questionText | truncate : 125}}</a></p>
+            <p><a (click)="answerQuestion(q.questionId)">{{q.questionTitle}}</a></p>
+            <p>{{q.questionText | truncate : 125}}</p>
             <p><label class="tag">TAGS: </label>
                 <label class="tag tag-box" *ngFor="let t of q.tags">{{t.name}}</label>
             </p>

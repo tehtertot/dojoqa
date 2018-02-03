@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using Microsoft.AspNetCore.Identity;
 
 namespace dojoQA.Models
@@ -12,6 +13,8 @@ namespace dojoQA.Models
 
         public string LinkedInAccountURL { get; set; }
 
+        public CurrentStack? CurrentStack { get; set; }
+
         public List<Question> QuestionsAsked { get; set; }
 
         public List<Answer> AnswersProvided { get; set; }
@@ -19,5 +22,15 @@ namespace dojoQA.Models
         public List<QuestionVote> QuestionsVotedOn { get; set; }
 
         public List<AnswerVote> AnswersVotedOn { get; set; }
+    }
+
+    public enum CurrentStack {
+        [EnumMember(Value="Web Fundamentals")]
+        WebFundamentals, 
+        Python, 
+        [EnumMember(Value="C#")]
+        CSharp, 
+        Java, 
+        MEAN
     }
 }

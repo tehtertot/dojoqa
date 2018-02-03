@@ -9,6 +9,8 @@ namespace dojoQA.Models
         [Key]
         public int QuestionId { get; set; }
 
+        public string QuestionTitle { get; set; }
+
         [MinLength(10, ErrorMessage="Please provide a more descriptive question.")]
         public string QuestionText { get; set; }
 

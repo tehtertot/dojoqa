@@ -7,4 +7,5 @@ export class Answer {
     answeredByName: string;
     answeredDate: Date;
     votes: number;
+    canVote: boolean = true;
 }

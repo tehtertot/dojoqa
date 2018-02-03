@@ -18,6 +18,7 @@ export class AskComponent implements OnInit {
     public question: Question = new Question();
     public tagList: Array<CategoryTag>;
     public selectedTags: Array<Tag> = [];
+    public error: string = "";
 
     constructor(private _questionService: QuestionService, private _router: Router) { }
             
@@ -34,10 +35,16 @@ export class AskComponent implements OnInit {
             window.alert("Question cannot be empty");
         }
         else {
+            this.question.QuestionTitle = this.question.QuestionTitle.trim();
             this.question.QuestionText = this.question.QuestionText.trim();
             this._questionService.addQuestion(this.question)
                 .subscribe((res) => {
-                    this._router.navigate(['/search/questions']);
+                    if (res) {
+                        this._router.navigate(['/search/questions']);
+                    }
+                    else {
+                        this.error = "Error adding question to the database. Please try again.";
+                    }
                 })
         }
     }

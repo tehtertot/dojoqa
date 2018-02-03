@@ -1,5 +1,5 @@
 <h1>Registration</h1>
-<form (submit)="register()" #regForm="ngForm">
+<form (submit)="register(); regForm.reset()" #regForm="ngForm">
     
     <div class="row">
         <label class="col-sm-4">First Name:</label>
@@ -35,11 +35,10 @@
     <br>
     
     <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Location:</label>
+        <label class="col-sm-4 col-form-label">Current Stack:</label>
         <div class="col-sm-7">
-            <select id="select" class="form-control">
-                <option *ngFor = "let l of location"
-                    [value] = "l"> {{l}} 
+            <select id="select" class="form-control" name="stack" #stack="ngModel" [(ngModel)]="user.CurrentStack">
+                <option *ngFor = "let s of stacks; let idx = index" [ngValue]="idx"> {{s}} 
                 </option>
             </select>
         </div>

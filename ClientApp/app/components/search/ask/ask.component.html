@@ -1,15 +1,17 @@
 <h1>Ask a Question</h1>
-
+<p class="rederror">{{error}}</p>
 <form (submit)="addQuestion()" #questionForm="ngForm">
+    <p><input name="title" required [(ngModel)]="question.QuestionTitle" #title="ngModel" class="form-control" placeholder="Title" minlength="10" maxlength="60"></p>
     <textarea name="content" required [(ngModel)]="question.QuestionText" #content="ngModel" class="form-control">
     </textarea>
     
-    <div class="col-sm-3">
+    <!-- <div class="col-sm-3">
     <select name="allTags" class="form-control col-sm-4" (change)="addTag($event.target.value)">
         <option value="">---select tag---</option>
+        <option *ngFor="let c of tagList" value="">{{c.categoryName}}</option>
         <option *ngFor="let t of tagList; let i = index" value={{i}}>{{t.name}}</option>
     </select>
-    </div>
+    </div> -->
     
     <div class="col-sm-8">
         <label class="tag" *ngFor="let oneTag of question.Tags; let idx = index">{{oneTag.name}}<span class="close" aria-label="Close" (click)="removeTag(idx)"><span aria-hidden="true">&times;</span></span></label>
