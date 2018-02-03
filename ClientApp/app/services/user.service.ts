@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { User } from '../models/User';
 import { UserServerResponse } from '../models/UserServerResponse';
 import { Token } from '../models/Token';
@@ -8,23 +8,28 @@ import { Observable } from 'rxjs/Rx';
 
 @Injectable()
 export class UserService {
+  loggedInStatus: Observable<boolean>;
+  loggedSubject: Subject<boolean>;
 
   private loggedIn = false;
   private userId: string;
   private stacks = ["Web Fundamentals", "Python", "C#", "Java", "MEAN"];
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient) {
+    this.loggedSubject = new Subject<boolean>();
+    this.loggedInStatus = this.loggedSubject.asObservable();
+  }
 
   isLoggedIn(): boolean {
     return this.loggedIn;
   }
   
   setLoggedInStatus(isLoggedIn: boolean) : void {
+    this.loggedSubject.next(isLoggedIn);
     this.loggedIn = isLoggedIn;
     if (isLoggedIn) {
       this.setUserId()
         .subscribe((val) => {
-          console.log(val);
           this.userId = val;
         });
     }

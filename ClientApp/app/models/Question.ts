@@ -1,7 +1,7 @@
 import { Tag } from "./Tag";
 
 export class Question {
-    _id: number;
+    QuestionId: number;
     QuestionTitle: string;
     QuestionText: string;
     AskedByUser: string;

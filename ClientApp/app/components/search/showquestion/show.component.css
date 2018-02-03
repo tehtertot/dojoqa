@@ -27,3 +27,18 @@
         padding: 3px;
         border-radius: 3px;
     }
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 50%;
+    height: 35%;
+    padding: 2%;
+    margin: auto;
+    background-color: lightgray;
+    border-radius: 3px;
+    border: 1px solid gray;
+}

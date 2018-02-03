@@ -72,6 +72,20 @@ namespace dojoQA.Controllers
             return returnedQ;
         }
 
+        [HttpPost("edit")]
+        public bool editQuestion([FromBody] InputQuestion question) {
+            try {
+                Question qToUpdate = _context.Questions.Single(q => q.QuestionId == question.QuestionId);
+                qToUpdate.QuestionTitle = question.QuestionTitle;
+                qToUpdate.QuestionText = question.QuestionText;
+                _context.SaveChanges();
+                return true;
+            }
+            catch {
+                return false;
+            }
+        }
+
         [HttpGet("vote/{id:int}")]
         public bool upvoteQuestion(int id) {
             string userId = _caller.Claims.Single(c => c.Type == "id").Value;
@@ -103,6 +117,19 @@ namespace dojoQA.Controllers
             _context.Answers.Add(a);
             _context.SaveChanges();
             return new QuestionWithAnswersViewModel(_context.Questions.Single(q => q.QuestionId == id));
+        }
+
+        [HttpPost("answer/edit")]
+        public bool editAnswer([FromBody] AnswerView answer) {
+            try {
+                Answer aToUpdate = _context.Answers.Single(a => a.AnswerId == answer.AnswerId);
+                aToUpdate.AnswerText = answer.AnswerText;
+                _context.SaveChanges();
+                return true;
+            }
+            catch {
+                return false;
+            }
         }
 
         [HttpGet("answer/vote/{id:int}")]

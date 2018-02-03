@@ -17,7 +17,8 @@ namespace dojoQA.Models
         public string AskedByFirstName { get; set; }
         public string AskedByLastName { get; set; }
         public DateTime CreatedAt { get; set; }
-        public List<TagViewModel> Tags { get; set; }
+        // public List<TagViewModel> Tags { get; set; }
+        public List<string> TagsString { get; set; }
 
         public QuestionWithAnswersViewModel() { }
 
@@ -32,7 +33,8 @@ namespace dojoQA.Models
             CreatedAt = question.CreatedAt;
             Answers = new List<AnswerView>();
             addAnswers(question.Answers);
-            Tags = new List<TagViewModel>();   
+            // Tags = new List<TagViewModel>();   
+            TagsString = new List<string>();
             addTags(question.Tags); 
         }
 
@@ -51,13 +53,16 @@ namespace dojoQA.Models
 
         private void addTags(List<QuestionTag> allTags) {
             foreach (QuestionTag tag in allTags) {
-                TagViewModel tvm = new TagViewModel();
-                tvm.tagId = tag.TagId;
-                tvm.name = tag.Tag.Name;
-                tvm.categoryId = tag.Tag.Category.CategoryId;
-                tvm.categoryName = tag.Tag.Category.Name;
-                Tags.Add(tvm);
+                TagsString.Add(tag.Tag.Name);
             }
+            // foreach (QuestionTag tag in allTags) {
+            //     TagViewModel tvm = new TagViewModel();
+            //     tvm.tagId = tag.TagId;
+            //     tvm.name = tag.Tag.Name;
+            //     tvm.categoryId = tag.Tag.Category.CategoryId;
+            //     tvm.categoryName = tag.Tag.Category.Name;
+            //     Tags.Add(tvm);
+            // }
         }
     }
 

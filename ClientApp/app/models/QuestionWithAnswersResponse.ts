@@ -12,5 +12,6 @@ export class QuestionWithAnswersResponse {
     askedById: string;
     createdAt: Date;
     answers: Answer[] = [];
-    tags: Tag[] = [];
+    // tags: Tag[] = [];
+    tagsString: string[] = [];
 }

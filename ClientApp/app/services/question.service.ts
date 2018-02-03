@@ -33,6 +33,10 @@ export class QuestionService {
     return this._http.get<QuestionWithAnswersResponse>(`/questions/${id}`);
   }
 
+  updateQuestion(question: Question) : Observable<boolean> {
+    return this._http.post<boolean>("/questions/edit", question);
+  }
+
   voteForQuestion(questionId: number) : Observable<boolean> {
     return this._http.get<boolean>(`/questions/vote/${questionId}`);
   }
@@ -40,6 +44,10 @@ export class QuestionService {
   //************ ANSWERS **************//
   addAnswer(answer: Answer, id: number) : Observable<QuestionWithAnswersResponse> {
     return this._http.post<QuestionWithAnswersResponse>(`/questions/answer/${id}`, answer);
+  }
+
+  updateAnswer(answer: Answer) : Observable<boolean> {
+    return this._http.post<boolean>("/questions/answer/edit", answer);
   }
 
   voteForAnswer(answerId: number) : Observable<boolean> {
