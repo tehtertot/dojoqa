@@ -18,7 +18,7 @@ import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
+import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { SearchComponent } from './components/search/search.component';
 import { QuestionsComponent } from './components/search/questions/questions.component';
 import { AskComponent } from './components/search/ask/ask.component';
@@ -28,6 +28,7 @@ import { ShowQuestionComponent } from './components/search/showquestion/show.com
 //backend server services
 import { UserService } from './services/user.service';
 import { QuestionService } from './services/question.service';
+import { LeaderboardService } from './services/leaderboard.service';
 
 //authentication
 import { AuthGuard } from './services/auth.guard';
@@ -42,7 +43,7 @@ import { SingleQuestionResolver } from './services/question.resolve.service';
         AppComponent,
         NavMenuComponent,
         SearchComponent,
-        FetchDataComponent,
+        LeaderboardComponent,
         HomeComponent,
         ProfileComponent,
         LogoutComponent,
@@ -68,7 +69,7 @@ import { SingleQuestionResolver } from './services/question.resolve.service';
                 { path: 'ask', component: AskComponent },
                 { path: 'questions/:id', component: ShowQuestionComponent, resolve: { question: SingleQuestionResolver }}
             ] },
-            { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthGuard] },
+            { path: 'leaderboard', component: LeaderboardComponent, canActivate: [AuthGuard] },
             { path: 'logout', component: LogoutComponent },
             { path: '**', redirectTo: 'home' }
         ]),
@@ -76,6 +77,7 @@ import { SingleQuestionResolver } from './services/question.resolve.service';
     providers: [
         UserService,
         QuestionService,
+        LeaderboardService,
         AllQuestionsResolver,
         SingleQuestionResolver,
         AuthGuard,

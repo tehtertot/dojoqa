@@ -11,9 +11,6 @@ import { Answer } from '../models/Answer';
 import { CategoryTag } from '../models/CategoryTag';
 import { QuestionWithAnswersResponse } from '../models/QuestionWithAnswersResponse';
 import { QuestionServerResponse } from '../models/QuestionServerResponse';
-// import { Tag } from '../models/Tag';
-
-
 
 @Injectable()
 export class QuestionService {
