@@ -1,5 +1,4 @@
 import { Answer } from './Answer';
-import { Tag } from './Tag';
 
 export class QuestionWithAnswersResponse {
     questionId: number;
@@ -12,6 +11,5 @@ export class QuestionWithAnswersResponse {
     askedById: string;
     createdAt: Date;
     answers: Answer[] = [];
-    // tags: Tag[] = [];
     tagsString: string[] = [];
 }

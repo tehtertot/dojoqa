@@ -10,7 +10,6 @@ import { Question } from '../models/Question';
 import { Answer } from '../models/Answer';
 import { CategoryTag } from '../models/CategoryTag';
 import { QuestionWithAnswersResponse } from '../models/QuestionWithAnswersResponse';
-import { QuestionServerResponse } from '../models/QuestionServerResponse';
 
 @Injectable()
 export class QuestionService {

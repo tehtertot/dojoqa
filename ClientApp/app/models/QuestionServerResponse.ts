@@ -1,4 +1,4 @@
-import { Tag } from "./Tag";
+import { SimpleTag } from "./SimpleTag";
 
 export class QuestionServerResponse {
     questionId: number;
@@ -7,5 +7,5 @@ export class QuestionServerResponse {
     askedByLastName: string;
     askedById: string;
     createdAt: Date;
-    tags: Tag[];
+    tags: SimpleTag[];
 }

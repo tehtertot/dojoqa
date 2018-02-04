@@ -5,8 +5,9 @@ import { QuestionService } from '../../../services/question.service';
 
 import { Question } from '../../../models/Question';
 import { QuestionServerResponse } from '../../../models/QuestionServerResponse';
-import { Tag } from '../../../models/Tag';
+import { SimpleTag } from '../../../models/SimpleTag';
 import { CategoryTag } from '../../../models/CategoryTag';
+import { forEach } from '@angular/router/src/utils/collection';
 
 
 @Component({
@@ -17,7 +18,7 @@ import { CategoryTag } from '../../../models/CategoryTag';
 export class AskComponent implements OnInit {
     public question: Question = new Question();
     public tagList: Array<CategoryTag>;
-    public selectedTags: Array<Tag> = [];
+    // public selectedTags: Array<CategoryTag> = [];
     public error: string = "";
 
     constructor(private _questionService: QuestionService, private _router: Router) { }
@@ -49,12 +50,33 @@ export class AskComponent implements OnInit {
         }
     }
 
-    public removeTag(tagIndex: number) {
-        // this.tagList.push(this.question.Tags.splice(tagIndex, 1)[0]);
-    }
-
-    public addTag(tagIndex: number) {
-        // this.question.Tags.push(this.tagList.splice(tagIndex, 1)[0]);        
+    public addTag(selectedTag: number) {
+        //get index of checked/unchecked tag
+        let idx = this.getQuestionTagIndex(selectedTag);
+        //not in list? add : remove
+        idx < 0 ? this.question.Tags.push(this.getTag(selectedTag)) : this.question.Tags.splice(idx, 1);
     }
         
+    private getQuestionTagIndex(tagIdx: number) : number {
+        for (let i = 0; i < this.question.Tags.length; i++) {
+            if (this.question.Tags[i].tagId == tagIdx) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private getTag(tagIdx: number) : SimpleTag {
+        let x = new SimpleTag();        
+        this.tagList.forEach((cat) => {
+            cat.tags.forEach((tag) => {
+                if (tag.tagId == tagIdx) {
+                    x.tagId = tag.tagId;
+                    x.tagName = tag.tagName;
+                    return x;
+                }
+            })
+        })
+        return x;
+    }
 }

@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { Question } from '../../../models/Question';
 import { QuestionWithAnswersResponse } from '../../../models/QuestionWithAnswersResponse';
-import { Tag } from '../../../models/Tag';
 import { CategoryTag } from '../../../models/CategoryTag';
 
 import { QuestionService } from '../../../services/question.service';

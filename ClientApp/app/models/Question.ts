@@ -1,9 +1,9 @@
-import { Tag } from "./Tag";
+import { SimpleTag } from "./SimpleTag";
 
 export class Question {
     QuestionId: number;
     QuestionTitle: string;
     QuestionText: string;
     AskedByUser: string;
-    Tags: Array<Tag> = [];
+    Tags: Array<SimpleTag> = [];
 }

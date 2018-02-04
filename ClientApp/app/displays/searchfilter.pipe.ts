@@ -2,8 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { QuestionServerResponse } from '../models/QuestionServerResponse';
 
 import * as Fuse from 'fuse.js';
-import { Tag } from '../models/Tag';
-import { forEach } from '@angular/router/src/utils/collection';
+import { SimpleTag } from '../models/SimpleTag';
 
 @Pipe({
     name: 'searchfilter'
@@ -52,10 +51,10 @@ export class SearchFilterPipe implements PipeTransform {
         // return filteredQuestions;
     }
 
-    private getFields(input: Tag[]) {
+    private getFields(input: SimpleTag[]) {
         let output: string[] = [];
         for (let i = 0; i < input.length; i++) {
-            output.push(input[i].name);
+            output.push(input[i].tagName);
         }
         return output;
     }
