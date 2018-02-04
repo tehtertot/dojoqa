@@ -51,11 +51,11 @@
         <div class="col-sm-7">
             <!-- add regex pattern validation -->
             <!-- default Identity validations: at least 6 characters, one non-alphanumeric, one lowercase, one uppercase -->
-          <input type="password" name="password" required [(ngModel)]="user.Password" #password="ngModel" class="form-control" minlength="5" validateEqual="cpw">
+          <input type="password" name="password" required [(ngModel)]="user.Password" #password="ngModel" class="form-control" minlength="6" validateEqual="cpw" pattern="/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,}$/">
         </div>
     </div>
     <div class="col-sm-4"></div>
-    <div class="col-sm-6 error" *ngIf="!password.valid && (password.dirty || password.touched)">Must be at least 5 characters</div>
+    <div class="col-sm-6 error" *ngIf="!password.valid && (password.dirty || password.touched)">Must be at least 6 characters, have one lowercase, one uppercase, and one non alpha-numeric character</div>
     
     <br>
 
